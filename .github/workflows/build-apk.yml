@@ -16,18 +16,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Prepare and Build Capacitor App
+      - name: Setup and Build Capacitor
         run: |
           mkdir -p www
           cp index.html www/index.html
@@ -35,9 +35,17 @@ jobs:
           if [ -f manifest.json ]; then cp manifest.json www/manifest.json; fi
           
           npm init -y
-          npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest
+          npm install @capacitor/core @capacitor/cli @capacitor/android
           
-          npx cap init "Italiano" "com.italiano.garments" --web-dir "www"
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.italiano.garments",
+            "appName": "Italiano",
+            "webDir": "www",
+            "bundledWebRuntime": false
+          }
+          EOF
+          
           npx cap add android
           npx cap sync android
 
