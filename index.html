@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>منظومة إدارة وتجهيز الأوامر المتكاملة | إيطاليانو</title>
     
-    <!-- مكتبات Firebase السحابية الرسمية -->
+    <!-- مكتبات Firebase السحابية -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -521,22 +521,24 @@
         <h2>شركة إيطاليانو للملابس الجاهزة</h2>
         <p>منظومة إدارة وتجهيز الأوامر السحابية</p>
         
-        <div class="input-box">
-            <label>اسم المستخدم:</label>
-            <input type="text" id="user-input">
-        </div>
-        <div class="input-box">
-            <label>كلمة المرور:</label>
-            <input type="password" id="pass-input">
-        </div>
-        
-        <label class="show-pass-row">
-            <span>إظهار كلمة المرور خلي بالك</span>
-            <input type="checkbox" id="show-pass-chk" onchange="togglePass()">
-        </label>
-        
-        <button class="btn-login-action" onclick="handleUserLogin()">دخول المنظومة 🚀</button>
-        <div id="login-err-msg" style="color: #ff9999; font-size: 12px; margin-top: 8px; display: none;">بيانات الدخول غير صحيحة!</div>
+        <form onsubmit="handleUserLogin(event)">
+            <div class="input-box">
+                <label>اسم المستخدم:</label>
+                <input type="text" id="user-input" required autocomplete="username">
+            </div>
+            <div class="input-box">
+                <label>كلمة المرور:</label>
+                <input type="password" id="pass-input" required autocomplete="current-password">
+            </div>
+            
+            <label class="show-pass-row">
+                <span>إظهار كلمة المرور</span>
+                <input type="checkbox" id="show-pass-chk" onchange="togglePass()">
+            </label>
+            
+            <button type="submit" class="btn-login-action">دخول المنظومة 🚀</button>
+            <div id="login-err-msg" style="color: #ff9999; font-size: 12px; margin-top: 8px; display: none;">بيانات الدخول غير صحيحة!</div>
+        </form>
     </div>
 </div>
 
@@ -547,7 +549,7 @@
         <span id="user-status-tag" style="color: #fae49d; font-weight: bold;">(23 - مطور النظام)</span>
     </div>
 
-    <!-- أزرار الإجراءات العلوية المستقلة -->
+    <!-- أزرار الإجراءات العلوية -->
     <div class="action-dock">
         <button class="dock-btn archive" id="btn-dock-archive" onclick="openArchive()">📂 الأرشيف</button>
         <button class="dock-btn log" id="btn-dock-log" onclick="openOperationsLogModal()">📋 سجل العمليات</button>
@@ -620,7 +622,4 @@
                 </tr>
                 <tr>
                     <td colspan="6" style="font-weight: bold; text-align: center; background: #fdfdfd;">مصاريف الشحن</td>
-                    <td colspan="2" style="width: 120px;"><input type="number" id="shipping-input" value="0" style="width: 100%; border: none; text-align: center; font-weight: bold;" oninput="calcOrderTotals()"></td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold; width: 110px; backg
+                    <td colspan="2" style="width: 120px;"><input type="number" id="shipping-input" value="0" style="width: 100%; border: none; text-align: center; fon
