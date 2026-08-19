@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="إيطاليانو">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#1a2a6c">
-    <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D8%A5%D9%8A%D8%B7%D8%A7%D9%84%D9%8A%D8%A7%D9%86%D9%88%20%D9%84%D9%84%D9%85%D9%84%D8%A7%D8%A8%D8%B3%22%2C%22short_name%22%3A%22%D8%A5%D9%8A%D8%B7%D8%A7%D9%84%D9%8A%D8%A7%D9%86%D9%88%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231a2a6c%22%2C%22theme_color%22%3A%22%231a2a6c%22%7D">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>منظومة إدارة وتجهيز الأوامر المتكاملة | إيطاليانو</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
     <style>
         :root {
             --primary: #1a2a6c;
@@ -181,6 +176,7 @@
         .dock-btn.users { background: #eef2ff; border-color: #6366f1; color: #4338ca; }
         .dock-btn.fields { background: #f0fdf4; border-color: #22c55e; color: #15803d; }
         .dock-btn.excel { background: #f0f9ff; border-color: #0ea5e9; color: #0369a1; }
+        .dock-btn.sync { background: #ecfdf5; border-color: #10b981; color: #047857; }
         .dock-btn.logout { background: #fef2f2; border-color: #ef4444; color: #b91c1c; }
 
         .sheet-body-wrap {
@@ -394,32 +390,6 @@
             align-items: center;
         }
 
-        .report-nav-tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 6px;
-        }
-
-        .rep-tab-btn {
-            flex: 1;
-            padding: 6px 2px;
-            font-size: 11px;
-            font-weight: bold;
-            border: 1px solid #ccc;
-            background: #f8f9fa;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .rep-tab-btn.active {
-            background: #1a2a6c;
-            color: #fff;
-            border-color: #1a2a6c;
-        }
-
         .stat-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -445,6 +415,32 @@
         .stat-card .title {
             font-size: 10.5px;
             color: #64748b;
+        }
+
+        .report-nav-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 6px;
+        }
+
+        .rep-tab-btn {
+            flex: 1;
+            padding: 6px 2px;
+            font-size: 11px;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            background: #f8f9fa;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .rep-tab-btn.active {
+            background: #1a2a6c;
+            color: #fff;
+            border-color: #1a2a6c;
         }
 
         .progress-bar-bg {
@@ -509,28 +505,28 @@
 </head>
 <body>
 
-<!-- شاشة تسجيل الدخول -->
+<!-- نافذة تسجيل الدخول -->
 <div id="login-modal">
     <div class="login-card">
         <div style="font-size: 32px; margin-bottom: 6px;">🔐</div>
         <h2>شركة إيطاليانو للملابس الجاهزة</h2>
-        <p>منظومة إدارة وتجهيز الأوامر</p>
+        <p>منظومة إدارة وتجهيز الأوامر السحابية</p>
         
         <div class="input-box">
             <label>اسم المستخدم:</label>
-            <input type="text" id="user-input">
+            <input type="text" id="user-input" inputmode="numeric">
         </div>
         <div class="input-box">
             <label>كلمة المرور:</label>
-            <input type="password" id="pass-input">
+            <input type="password" id="pass-input" inputmode="numeric">
         </div>
         
         <label class="show-pass-row">
-            <span>إظهار كلمة المرور خلي بالك</span>
+            <span>إظهار كلمة المرور</span>
             <input type="checkbox" id="show-pass-chk" onchange="togglePass()">
         </label>
         
-        <button class="btn-login-action" onclick="handleUserLogin()">دخول المنظومة 🚀</button>
+        <button type="button" class="btn-login-action" onclick="handleUserLogin()">دخول المنظومة 🚀</button>
         <div id="login-err-msg" style="color: #ff9999; font-size: 12px; margin-top: 8px; display: none;">بيانات الدخول غير صحيحة!</div>
     </div>
 </div>
@@ -542,7 +538,6 @@
         <span id="user-status-tag" style="color: #fae49d; font-weight: bold;">(23 - مطور النظام)</span>
     </div>
 
-    <!-- أزرار الإجراءات العلوية المستقلة -->
     <div class="action-dock">
         <button class="dock-btn archive" id="btn-dock-archive" onclick="openArchive()">📂 الأرشيف</button>
         <button class="dock-btn log" id="btn-dock-log" onclick="openOperationsLogModal()">📋 سجل العمليات</button>
@@ -550,10 +545,11 @@
         <button class="dock-btn users" id="btn-dock-users" onclick="openUserManagement()">👥 الصلاحيات</button>
         <button class="dock-btn fields" id="btn-dock-fields" onclick="openFieldManager()">🎛️ تخصيص</button>
         <button class="dock-btn excel" id="btn-dock-excel" onclick="exportFullArchiveAndReportsToExcel()">📊 إكسل</button>
+        <button class="dock-btn sync" id="btn-dock-sync" onclick="syncCloudDirect()">🔄 تحديث سحابي</button>
         <button class="dock-btn logout" onclick="userLogout()">🚪 خروج</button>
     </div>
 
-    <!-- الشيت الورقي المطابق 100% للتصميم الأصلي -->
+    <!-- شيت الفاتورة -->
     <div class="sheet-body-wrap">
         <div class="order-paper-card" id="main-order-paper">
             <div class="paper-header">
@@ -620,4 +616,16 @@
                 <tr>
                     <td style="font-weight: bold; width: 110px; background: #fdfdfd;">الإجمالي الكلي النهائي</td>
                     <td colspan="5" class="tafqeet-cell" id="tafqeet-display">فقط لا غير</td>
-                    <td colspan="2" style="font-weight: bold; color: #1e3c72; width: 
+                    <td colspan="2" style="font-weight: bold; color: #1e3c72; width: 120px;" id="grandtotal-display">0</td>
+                </tr>
+            </table>
+
+            <div class="paper-footer">
+                <div class="footer-note-row">
+                    <span style="font-weight: bold;">ملاحظات:</span>
+                    <input type="text" id="footer-notes">
+                </div>
+                <div class="footer-action-row">
+                    <span style="font-weight: bold;">توقيع المسؤول: ............................................</span>
+                    <button type="button" class="btn-submit-order" onclick="openPrintOptionsModal()">
+  
