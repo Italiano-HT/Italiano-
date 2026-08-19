@@ -11,12 +11,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>منظومة إدارة وتجهيز الأوامر المتكاملة | إيطاليانو</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
     <style>
         :root {
             --primary: #1a2a6c;
@@ -513,28 +509,28 @@
 </head>
 <body>
 
-<!-- نافذة الدخول الفورية -->
+<!-- شاشة تسجيل الدخول -->
 <div id="login-modal">
     <div class="login-card">
         <div style="font-size: 32px; margin-bottom: 6px;">🔐</div>
         <h2>شركة إيطاليانو للملابس الجاهزة</h2>
-        <p>منظومة إدارة وتجهيز الأوامر السحابية</p>
+        <p>منظومة إدارة وتجهيز الأوامر</p>
         
         <div class="input-box">
             <label>اسم المستخدم:</label>
-            <input type="text" id="user-input" inputmode="numeric">
+            <input type="text" id="user-input">
         </div>
         <div class="input-box">
             <label>كلمة المرور:</label>
-            <input type="password" id="pass-input" inputmode="numeric">
+            <input type="password" id="pass-input">
         </div>
         
         <label class="show-pass-row">
-            <span>إظهار كلمة المرور</span>
+            <span>إظهار كلمة المرور خلي بالك</span>
             <input type="checkbox" id="show-pass-chk" onchange="togglePass()">
         </label>
         
-        <button type="button" id="login-btn-submit" class="btn-login-action" onclick="handleUserLogin()">دخول المنظومة 🚀</button>
+        <button class="btn-login-action" onclick="handleUserLogin()">دخول المنظومة 🚀</button>
         <div id="login-err-msg" style="color: #ff9999; font-size: 12px; margin-top: 8px; display: none;">بيانات الدخول غير صحيحة!</div>
     </div>
 </div>
@@ -546,7 +542,7 @@
         <span id="user-status-tag" style="color: #fae49d; font-weight: bold;">(23 - مطور النظام)</span>
     </div>
 
-    <!-- أزرار الإجراءات العلوية -->
+    <!-- أزرار الإجراءات العلوية المستقلة -->
     <div class="action-dock">
         <button class="dock-btn archive" id="btn-dock-archive" onclick="openArchive()">📂 الأرشيف</button>
         <button class="dock-btn log" id="btn-dock-log" onclick="openOperationsLogModal()">📋 سجل العمليات</button>
@@ -557,7 +553,7 @@
         <button class="dock-btn logout" onclick="userLogout()">🚪 خروج</button>
     </div>
 
-    <!-- الشيت الورقي -->
+    <!-- الشيت الورقي المطابق 100% للتصميم الأصلي -->
     <div class="sheet-body-wrap">
         <div class="order-paper-card" id="main-order-paper">
             <div class="paper-header">
@@ -622,4 +618,6 @@
                     <td colspan="2" style="width: 120px;"><input type="number" id="shipping-input" value="0" style="width: 100%; border: none; text-align: center; font-weight: bold;" oninput="calcOrderTotals()"></td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; widt
+                    <td style="font-weight: bold; width: 110px; background: #fdfdfd;">الإجمالي الكلي النهائي</td>
+                    <td colspan="5" class="tafqeet-cell" id="tafqeet-display">فقط لا غير</td>
+                    <td colspan="2" style="font-weight: bold; color: #1e3c72; width: 
